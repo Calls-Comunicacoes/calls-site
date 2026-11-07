@@ -3,20 +3,150 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calls: voz, tela e chat para jogar com a galera</title>
-    <meta name="description" content="Calls é o app gratuito para conversar por voz, transmitir a tela e reunir sua comunidade. Baixe para Windows." />
+
+    <!-- SEO básico -->
+    <title>Calls: app grátis de voz e tela para jogar com a galera</title>
+    <meta name="description" content="Baixe o Calls, app brasileiro e gratuito para Windows: calls de voz com senha, transmissão de tela em 1440p60, chat, cargos e convites. Sem anúncio, sem cartão." />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href="https://calls.fbrdev.com.br/" />
+    <link rel="alternate" hreflang="pt-BR" href="https://calls.fbrdev.com.br/" />
+    <link rel="alternate" hreflang="x-default" href="https://calls.fbrdev.com.br/" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <meta name="theme-color" content="#0B0D12" />
-    <meta property="og:title" content="Calls" />
-    <meta property="og:description" content="Calls com senha, transmissão de tela e cargos do seu jeito. Grátis." />
-    <meta property="og:image" content="media/callstor-setup.webp" />
-    <link rel="icon" type="image/png" sizes="64x64" href="media/favicon.png" />
-    <link rel="apple-touch-icon" href="media/apple-touch-icon.png" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Calls" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content="https://calls.fbrdev.com.br/" />
+    <meta property="og:title" content="Calls: app grátis de voz e tela para jogar com a galera" />
+    <meta property="og:description" content="Calls de voz com senha, transmissão de tela em 1440p60 e chat num app só. Grátis, brasileiro e sem anúncio." />
+    <meta property="og:image" content="https://calls.fbrdev.com.br/media/og-calls.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Callstor, o castor mascote do Calls, de headset na cadeira gamer" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Calls: app grátis de voz e tela para jogar com a galera" />
+    <meta name="twitter:description" content="Calls de voz com senha, transmissão de tela em 1440p60 e chat num app só. Grátis, brasileiro e sem anúncio." />
+    <meta name="twitter:image" content="https://calls.fbrdev.com.br/media/og-calls.jpg" />
+    <meta name="twitter:image:alt" content="Callstor, o castor mascote do Calls, de headset na cadeira gamer" />
+
+    <!-- Ícones -->
+    <link rel="icon" type="image/png" sizes="64x64" href="/media/favicon.png" />
+    <link rel="apple-touch-icon" href="/media/apple-touch-icon.png" />
+
+    <!-- Performance: o quadro do vídeo é o maior elemento da primeira dobra (LCP) -->
+    <link rel="preload" as="image" href="/media/hero-callstor-poster.webp" type="image/webp" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.github.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Atkinson+Hyperlegible+Next:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <!-- Dados estruturados -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://calls.fbrdev.com.br/#org",
+            "name": "Calls Comunicações",
+            "url": "https://calls.fbrdev.com.br/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://calls.fbrdev.com.br/media/apple-touch-icon.png",
+              "width": 180,
+              "height": 180
+            },
+            "sameAs": ["https://github.com/Calls-Comunicacoes"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://calls.fbrdev.com.br/#site",
+            "url": "https://calls.fbrdev.com.br/",
+            "name": "Calls",
+            "inLanguage": "pt-BR",
+            "publisher": { "@id": "https://calls.fbrdev.com.br/#org" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://calls.fbrdev.com.br/#app",
+            "name": "Calls",
+            "description": "App brasileiro e gratuito de calls de voz, transmissão de tela em 1440p60 e chat para comunidades e amigos que jogam juntos.",
+            "applicationCategory": "CommunicationApplication",
+            "operatingSystem": "Windows 10, Windows 11",
+            "inLanguage": "pt-BR",
+            "url": "https://calls.fbrdev.com.br/",
+            "downloadUrl": "https://github.com/Calls-Comunicacoes/calls-releases/releases/latest",
+            "image": "https://calls.fbrdev.com.br/media/og-calls.jpg",
+            "featureList": [
+              "Calls de voz com senha e limite de pessoas",
+              "Transmissão de tela em até 1440p60",
+              "Cargos com permissões",
+              "Convites com validade e limite de usos",
+              "Sons, temas e perfil animado",
+              "Nome com número (nome#0000)"
+            ],
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "BRL",
+              "availability": "https://schema.org/PreOrder"
+            },
+            "publisher": { "@id": "https://calls.fbrdev.com.br/#org" }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://calls.fbrdev.com.br/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "O Calls é grátis mesmo?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Sim. Baixar, criar servidores, entrar em calls, transmitir em 1440p60 e usar perfil animado, temas e sons do Callstor não custam nada e não têm anúncio. O Calls+ é opcional e cobre nuvem, gravação e ferramentas extras." }
+              },
+              {
+                "@type": "Question",
+                "name": "O Windows mostrou “O Windows protegeu o computador”. É seguro?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Esse aviso do SmartScreen aparece porque o instalador ainda não tem assinatura de código. Clique em Mais informações, confira se o arquivo é Calls-versão-win-x64.exe e se veio deste site ou das releases oficiais no GitHub, e clique em Executar assim mesmo. Com o Controle Inteligente de Aplicativos do Windows 11 ligado, o mais seguro é esperar a versão assinada." }
+              },
+              {
+                "@type": "Question",
+                "name": "Funciona no Mac ou no Linux?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Por enquanto só no Windows 10 e 11, 64 bits. macOS e Linux estão no planejamento." }
+              },
+              {
+                "@type": "Question",
+                "name": "Como o Calls se atualiza?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Sozinho. O launcher confere se há versão nova ao abrir, baixa e instala em segundo plano." }
+              },
+              {
+                "@type": "Question",
+                "name": "Meus dados ficam seguros?",
+                "acceptedAnswer": { "@type": "Answer", "text": "As senhas são guardadas com hash, a conexão é sempre criptografada (HTTPS e WebRTC com DTLS-SRTP) e o Calls não vende dados nem mostra anúncios." }
+              },
+              {
+                "@type": "Question",
+                "name": "Quanto vai custar o Calls+?",
+                "acceptedAnswer": { "@type": "Answer", "text": "R$ 9,90 por mês ou R$ 99 por ano, com pagamento por Pix ou cartão. O valor final sai junto com o lançamento." }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><!--app-html--></div>
+    <noscript>
+      <p style="padding:16px;color:#E6E9F0;background:#0B0D12">
+        O Calls é um app gratuito de voz e tela para Windows.
+        <a href="https://github.com/Calls-Comunicacoes/calls-releases/releases/latest" style="color:#6AB2F2">Baixar a versão mais recente</a>.
+      </p>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

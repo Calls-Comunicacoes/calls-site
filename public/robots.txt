@@ -1,0 +1,5 @@
+# Calls — https://calls.fbrdev.com.br
+User-agent: *
+Allow: /
+
+Sitemap: https://calls.fbrdev.com.br/sitemap.xml

@@ -81,7 +81,7 @@ function Hero() {
         <div className="hero-copy">
           <h1>O castor já tá de headset.</h1>
           <p className="lead">
-            E a galera já tá na call. Voz, tela em 1440p60 e chat num app só, de graça.
+            E a galera já tá na call. O Calls junta voz, tela em 1440p60 e chat num app só, de graça, para Windows.
             Cria a call, põe senha se quiser e manda o convite.
           </p>
           <div id="baixar" className="hero-cta">

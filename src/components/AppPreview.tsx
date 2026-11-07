@@ -19,14 +19,14 @@ export function AppPreview({ logo }: { logo: string }) {
           <i /><i /><i />
         </div>
         <div className="mock-body">
-          <aside className="mock-rail">
+          <div className="mock-rail">
             <span className="srv home"><img src={logo} alt="" width={42} height={42} /></span>
             <span className="sep" />
             {SERVERS.map((s, i) => <span key={s} className={`srv ${i === 0 ? 'active' : ''}`}>{s}</span>)}
             <span className="srv add">+</span>
-          </aside>
-          <aside className="mock-channels">
-            <header>Clã do Squad</header>
+          </div>
+          <div className="mock-channels">
+            <div className="mock-head">Clã do Squad</div>
             <p className="grp">Texto</p>
             <span className="ch"># geral</span>
             <span className="ch"># clipes</span>
@@ -37,12 +37,12 @@ export function AppPreview({ logo }: { logo: string }) {
             </div>
             <span className="ch voice">Reunião <em className="lock">senha</em></span>
             <span className="ch voice">AFK</span>
-            <footer className="me">
+            <div className="me">
               <b className="avatar xs a1">F</b>
               <span>felipe<em>#4821</em></span>
-            </footer>
-          </aside>
-          <section className="mock-call">
+            </div>
+          </div>
+          <div className="mock-call">
             <div className="share">
               <div className="share-screen">
                 <span className="live">AO VIVO</span>
@@ -65,14 +65,14 @@ export function AppPreview({ logo }: { logo: string }) {
               <span className="ctl on"><IconScreen width={18} height={18} /></span>
               <span className="ctl leave"><IconPhoneOff width={18} height={18} /></span>
             </div>
-          </section>
-          <aside className="mock-chat">
-            <header># geral</header>
+          </div>
+          <div className="mock-chat">
+            <div className="mock-head"># geral</div>
             <div className="msg"><b className="avatar xs a2">M</b><div><strong>mari</strong><p>bora mais uma? 🎯</p></div></div>
             <div className="msg"><b className="avatar xs a3">J</b><div><strong>joão</strong><p>só se o felipe parar de errar a smoke</p></div></div>
             <div className="msg"><b className="avatar xs a1">F</b><div><strong>felipe</strong><p>abre a call que eu transmito 👀</p></div></div>
             <div className="compose">Mensagem em #geral</div>
-          </aside>
+          </div>
         </div>
       </div>
 
