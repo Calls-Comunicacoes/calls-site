@@ -27,7 +27,7 @@ function Nav() {
     <header className="nav">
       <div className="wrap nav-inner">
         <a href="#topo" className="brand" aria-label="Calls, voltar ao início">
-          <img src={media('calls-logo-256.png')} alt="" width={30} height={30} />
+          <img src={media('logo-callstor.webp')} alt="" width={42} height={42} />
           <span translate="no">Calls</span>
         </a>
         <nav className="nav-links" aria-label="Seções">
@@ -317,7 +317,7 @@ function Footer() {
     <footer className="footer">
       <div className="wrap footer-inner">
         <div className="brand">
-          <img src={media('calls-logo-256.png')} alt="" width={26} height={26} />
+          <img src={media('logo-callstor.webp')} alt="" width={32} height={32} />
           <span translate="no">Calls Comunicações</span>
         </div>
         <nav aria-label="Rodapé">

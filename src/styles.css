@@ -86,7 +86,8 @@ a, button, summary, .btn { touch-action: manipulation; -webkit-tap-highlight-col
 .nav-inner { display: flex; align-items: center; gap: 28px; height: 68px; }
 .brand { display: flex; align-items: center; gap: 10px; color: var(--texto); font: 600 21px/1 var(--display); text-decoration: none; }
 .brand:hover { color: var(--texto); }
-.brand img { border-radius: 50%; }
+.brand img { width: 42px; height: 42px; }
+.footer .brand img { width: 32px; height: 32px; }
 .nav-links { display: flex; gap: 4px; margin-left: auto; }
 .nav-links a { color: var(--texto-2); font-size: 15px; padding: 8px 12px; text-decoration: none; border-radius: var(--r); }
 .nav-links a:hover { color: var(--texto); background: var(--sup); }
