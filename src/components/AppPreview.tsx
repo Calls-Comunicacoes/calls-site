@@ -20,7 +20,7 @@ export function AppPreview({ logo }: { logo: string }) {
         </div>
         <div className="mock-body">
           <aside className="mock-rail">
-            <span className="srv home"><img src={logo} alt="" /></span>
+            <span className="srv home"><img src={logo} alt="" width={42} height={42} /></span>
             <span className="sep" />
             {SERVERS.map((s, i) => <span key={s} className={`srv ${i === 0 ? 'active' : ''}`}>{s}</span>)}
             <span className="srv add">+</span>
@@ -31,12 +31,12 @@ export function AppPreview({ logo }: { logo: string }) {
             <span className="ch"># geral</span>
             <span className="ch"># clipes</span>
             <p className="grp">Voz</p>
-            <span className="ch voice on">🔊 Ranqueada <em>4/5</em></span>
+            <span className="ch voice on">Ranqueada das 21h <em>4/5</em></span>
             <div className="ch-users">
               {TILES.map((t) => <span key={t.n}><b className={`avatar xs ${t.c}`}>{t.n[0].toUpperCase()}</b>{t.n}</span>)}
             </div>
-            <span className="ch voice">🔒 Reunião</span>
-            <span className="ch voice">🔊 AFK</span>
+            <span className="ch voice">Reunião <em className="lock">senha</em></span>
+            <span className="ch voice">AFK</span>
             <footer className="me">
               <b className="avatar xs a1">F</b>
               <span>felipe<em>#4821</em></span>
@@ -46,7 +46,7 @@ export function AppPreview({ logo }: { logo: string }) {
             <div className="share">
               <div className="share-screen">
                 <span className="live">AO VIVO</span>
-                <span className="q">1440p · 60</span>
+                <span className="q">1440p 60</span>
                 <div className="hud"><i /><i /><i /></div>
               </div>
               <small>felipe está transmitindo</small>

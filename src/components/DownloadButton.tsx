@@ -7,7 +7,7 @@ export function DownloadButton({ size = 'lg', showMeta = true }: { size?: 'md' |
   if (r.state === 'soon') {
     return (
       <div className="dl">
-        <span className={`btn btn-${size} btn-soon`} aria-disabled="true">
+        <span className={`btn btn-${size} btn-soon`}>
           <IconWindows /> Em breve para Windows
         </span>
         {showMeta && (
@@ -23,14 +23,14 @@ export function DownloadButton({ size = 'lg', showMeta = true }: { size?: 'md' |
   const href = r.state === 'ready' ? r.url : RELEASES_URL
   return (
     <div className="dl">
-      <a className={`btn btn-${size} btn-primary`} href={href} data-loading={r.state === 'loading' || undefined}>
+      <a className={`btn btn-${size} btn-primary`} href={href} data-loading={r.state === 'loading' || undefined} aria-busy={r.state === 'loading' || undefined}>
         <IconWindows /> Baixar para Windows
       </a>
       {showMeta && (
         <p className="dl-meta">
           {r.state === 'ready'
-            ? <>Versão {r.version}{r.sizeMb ? ` · ${r.sizeMb} MB` : ''} · Windows 10 e 11, 64 bits</>
-            : <>Windows 10 e 11, 64 bits · grátis</>}
+            ? <>Versão {r.version}{r.sizeMb ? `, ${r.sizeMb} MB` : ''}. Windows 10 e 11, 64 bits.</>
+            : <>Windows 10 e 11, 64 bits. Sem anúncio, sem cartão.</>}
         </p>
       )}
     </div>
