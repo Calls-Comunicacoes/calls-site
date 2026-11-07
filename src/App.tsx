@@ -113,8 +113,8 @@ const FEATURES = [
   },
   {
     icon: <IconScreen />, title: 'Transmissão de tela no controle',
-    text: 'Escolha resolução e fps antes de transmitir: 720p para economizar, 1080p60 para mostrar a jogada.',
-    demo: <div className="demo-row seg"><span>720p</span><span className="on">1080p</span><span>60 fps</span></div>,
+    text: 'Escolha resolução e fps antes de transmitir: 720p para economizar, até 1440p60 para mostrar a jogada. De graça.',
+    demo: <div className="demo-row seg"><span>720p</span><span>1080p</span><span className="on">1440p</span><span className="on">60 fps</span></div>,
   },
   {
     icon: <IconRoles />, title: 'Cargos do seu jeito',
@@ -127,8 +127,8 @@ const FEATURES = [
     demo: <div className="demo-row"><code className="invite">calls.app/<b>k7Qx2</b></code><span className="mini-pill">24h</span></div>,
   },
   {
-    icon: <IconSound />, title: 'Sons personalizados',
-    text: 'Seu som de entrada, de saída e de notificação. Todo mundo sabe que você chegou.',
+    icon: <IconSound />, title: 'Sons, temas e perfil animado',
+    text: 'Seu som de entrada, os pacotes de sons do Callstor, temas extras e avatar e banner animados. Tudo incluso, para todo mundo.',
     demo: <div className="demo-row wave" aria-hidden="true">{Array.from({ length: 18 }, (_, i) => <i key={i} style={{ height: `${20 + ((i * 37) % 70)}%` }} />)}</div>,
   },
   {
@@ -178,18 +178,20 @@ function Preview() {
 
 const FREE = [
   'Calls de voz ilimitadas, com senha e limite',
-  'Transmissão de tela até 1080p30',
+  'Transmissão de tela em 1440p60',
+  'Avatar e banner animados',
+  'Temas e ícones extras do app',
+  'Pacotes de sons do Callstor',
   'Servidores, canais, cargos e convites',
-  'Sons personalizados básicos',
   'Uploads de até 25 MB',
 ]
 const PLUS = [
-  'Avatar e banner animados',
-  'Temas e ícones extras do app',
-  'Pacotes de sons premium do Callstor',
-  'Transmissão em 1440p60',
+  'Replay do Callstor: salve os últimos 2 min da call',
+  'Gravação de calls na nuvem (50 GB)',
+  'Transcrição e resumo das calls em português',
   'Uploads de até 500 MB',
   'Escolha o número da sua nametag',
+  'Perfil diferente em cada servidor',
   '2 impulsos de servidor por mês',
 ]
 
@@ -199,9 +201,9 @@ function CallsPlus() {
       <div className="wrap">
         <header className="section-head">
           <span className="eyebrow eyebrow-amber">Calls+</span>
-          <h2>O Calls é grátis. O Calls+ é para quem quer brilhar.</h2>
+          <h2>O visual é de todo mundo. O Calls+ é para quem quer mais espaço.</h2>
           <p className="section-sub">
-            Nada essencial fica atrás de pagamento. O Calls+ traz visual, sons e qualidade extra, e ajuda a manter os servidores no ar.
+            Perfil animado, temas, sons do Callstor e 1440p60 são grátis. O Calls+ traz nuvem, gravação e ferramentas, e ajuda a manter os servidores no ar.
           </p>
         </header>
 
@@ -228,11 +230,15 @@ function CallsPlus() {
           <div className="plan-extras">
             <article className="extra card">
               <h4>Impulsos de servidor</h4>
-              <p>A comunidade junta impulsos e libera áudio melhor, 1440p60 para todos e banner animado do servidor.</p>
+              <p>A comunidade junta impulsos e libera link personalizado, áudio de alta fidelidade, Palco para eventos e gravação do servidor.</p>
             </article>
             <article className="extra card">
-              <h4>Loja do Callstor</h4>
-              <p>Molduras, efeitos de perfil, figurinhas e pacotes de sons temáticos, comprados uma vez e seus para sempre.</p>
+              <h4>Para criadores</h4>
+              <p>Assinaturas do seu servidor, gorjetas por Pix durante a transmissão e ingressos para eventos. Você fica com até 90%.</p>
+            </article>
+            <article className="extra card">
+              <h4>Colecionáveis</h4>
+              <p>Edições limitadas de Natal, Carnaval e collabs com criadores. Opcionais: o visual básico continua grátis.</p>
             </article>
           </div>
         </div>
@@ -244,7 +250,7 @@ function CallsPlus() {
 const FAQ = [
   {
     q: 'O Calls é grátis mesmo?',
-    a: <>Sim. Baixar, criar servidores, entrar em calls e transmitir a tela não custam nada e não têm anúncio. O Calls+ (em breve) é opcional e só traz extras visuais e de qualidade.</>,
+    a: <>Sim. Baixar, criar servidores, entrar em calls e transmitir a tela não custam nada e não têm anúncio. Perfil e banner animados, temas, pacotes de sons do Callstor e transmissão em 1440p60 também são de todo mundo. O Calls+ (em breve) é opcional e traz nuvem, gravação e ferramentas extras.</>,
   },
   {
     q: 'O Windows mostrou "O Windows protegeu o computador". É seguro?',
