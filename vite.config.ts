@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// No GitHub Pages o site fica em /calls-site/. Com domínio próprio, trocar para '/'.
+// Site em domínio próprio (calls.fbrdev.com.br): raiz '/'. Para servir em /calls-site/, use SITE_BASE=/calls-site/.
 export default defineConfig({
-  base: process.env.SITE_BASE ?? '/calls-site/',
+  base: process.env.SITE_BASE ?? '/',
   plugins: [react()],
 })

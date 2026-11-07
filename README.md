@@ -16,11 +16,11 @@ Vite + React + TypeScript, sem dependências de runtime além do React. Publicad
 
 ```bash
 npm install
-npm run dev      # http://localhost:5173/calls-site/
+npm run dev      # http://localhost:5173/
 npm run build    # gera dist/
 ```
 
-O site fica em `/calls-site/` no Pages. Com domínio próprio, gere com `SITE_BASE=/ npm run build` (ou troque o padrão em `vite.config.ts`).
+No ar em **https://calls.fbrdev.com.br** (GitHub Pages com domínio próprio; o arquivo `public/CNAME` guarda o domínio). O DNS fica na Hostinger: registro `CNAME calls → calls-comunicacoes.github.io`.
 
 ## Botão de download
 
