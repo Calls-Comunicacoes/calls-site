@@ -305,7 +305,13 @@ function Footer() {
           <a href="#faq">Dúvidas</a>
           <a href="https://github.com/Calls-Comunicacoes" target="_blank" rel="noreferrer"><IconGithub width={16} height={16} /> GitHub</a>
         </nav>
-        <p className="fine">© {new Date().getFullYear()} Calls Comunicações. Feito no Brasil, com um castor de headset.</p>
+        <div className="footer-bottom">
+          <p className="fine">© {new Date().getFullYear()} Calls Comunicações. Feito no Brasil, com um castor de headset.</p>
+          <a className="made-by" href="https://fbrdev.com.br" target="_blank" rel="noopener" aria-label="Desenvolvido por FBR.Dev (abre em nova aba)">
+            <span>Desenvolvido por</span>
+            <img src={media('fbrdev-branco.webp')} alt="FBR.Dev" width={320} height={155} loading="lazy" />
+          </a>
+        </div>
       </div>
     </footer>
   )
