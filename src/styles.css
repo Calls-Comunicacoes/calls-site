@@ -93,9 +93,9 @@ a, button, summary, .btn { touch-action: manipulation; -webkit-tap-highlight-col
 .nav-links a:hover { color: var(--texto); background: var(--sup); }
 
 /* ---------- Hero ---------- */
-/* Hero: a foto do Callstor no setup é o palco; o canal de voz fica por cima, à direita */
+/* Hero: vídeo do Callstor no setup ocupa a tela; o texto fica à esquerda, sobre a parte escurecida */
 .hero { position: relative; isolation: isolate; min-height: min(860px, 100svh - 68px); display: flex; align-items: flex-end; padding: 120px 0 72px; border-bottom: 1px solid var(--linha); overflow: hidden; }
-.hero-photo { position: absolute; top: 0; bottom: 0; right: 0; left: 24%; z-index: -2; width: 76%; height: 100%; object-fit: cover; object-position: 45% 30%; }
+.hero-video { position: absolute; top: 0; bottom: 0; right: 0; left: 24%; z-index: -2; width: 76%; height: 100%; object-fit: cover; object-position: 50% 30%; }
 /* Escurece só o necessário para o texto ser legível (contraste), não é decoração */
 .hero::before {
   content: ''; position: absolute; inset: 0; z-index: -1;
@@ -103,40 +103,18 @@ a, button, summary, .btn { touch-action: manipulation; -webkit-tap-highlight-col
     linear-gradient(90deg, var(--noite) 0%, rgba(11, 13, 18, .94) 30%, rgba(11, 13, 18, .45) 55%, rgba(11, 13, 18, .1) 75%),
     linear-gradient(0deg, var(--noite) 0%, rgba(11, 13, 18, 0) 35%);
 }
-.hero-grid { width: min(1200px, 100% - 40px); display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px; align-items: end; }
+.hero-grid { width: min(1200px, 100% - 40px); }
 .hero-copy { max-width: 620px; }
 .hero h1 { font-size: clamp(48px, 7vw, 104px); line-height: .95; letter-spacing: -.025em; }
 .lead { font-size: 20px; color: var(--texto-2); max-width: 30em; margin: 28px 0 36px; }
 .hero .lead { color: #C3CAD8; }
-.hero .channel-stack { justify-self: end; width: min(400px, 100%); }
-
-.channel-stack { position: relative; margin: 0 14px 14px 0; }
-/* Camada de trás: outra janela do app, deslocada — dá profundidade sem sombra */
-.channel-stack::before {
-  content: ''; position: absolute; inset: 14px -14px -14px 14px;
-  background: var(--fundo); border: 1px solid var(--linha); border-radius: var(--r-painel);
+.hero-pause {
+  position: absolute; right: 20px; bottom: 20px; z-index: 1;
+  font: 500 13px/1 var(--corpo); color: var(--texto-2); cursor: pointer;
+  background: rgba(7, 8, 11, .7); border: 1px solid var(--linha-2); border-radius: var(--r); padding: 8px 10px;
+  transition: color .12s ease, border-color .12s ease;
 }
-.channel { position: relative; background: var(--sup); border: 1px solid var(--linha-2); border-radius: var(--r-painel); box-shadow: var(--lift); }
-.channel-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--linha); }
-.channel-head strong { font: 600 18px/1.2 var(--display); }
-.channel-head span { display: inline-flex; gap: 6px; align-items: center; color: var(--texto-3); font-size: 14px; }
-.members { list-style: none; padding: 8px 0; }
-.member { display: flex; align-items: center; gap: 14px; padding: 10px 20px; }
-.who { font-weight: 700; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.who span { color: var(--texto-3); font-weight: 400; }
-.state { margin-left: auto; font-size: 14px; color: var(--texto-3); display: inline-flex; gap: 6px; align-items: center; }
-.state.muted svg { color: var(--vermelho); }
-.member.speaking .state { color: var(--ambar-texto); }
-.member.speaking .avatar { box-shadow: 0 0 0 3px var(--sup), 0 0 0 5px var(--ambar); overflow: visible; position: relative; }
-.member.speaking .avatar video { border-radius: 50%; }
-/* Anel de fala: anima só transform/opacity */
-.member.speaking .avatar::after { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid var(--ambar); animation: fala 1.6s ease-out infinite; }
-@keyframes fala { from { transform: scale(1); opacity: .8; } to { transform: scale(1.35); opacity: 0; } }
-.members .share { position: relative; margin: 4px 20px 8px 70px; border: 1px solid var(--linha-2); border-radius: var(--r); overflow: hidden; }
-.members .share img { aspect-ratio: 16 / 8; object-fit: cover; width: 100%; }
-.members .share span { position: absolute; left: 8px; bottom: 8px; font-size: 13px; background: rgba(7, 8, 11, .88); padding: 4px 8px; border-radius: var(--r); }
-.channel-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px; border-top: 1px solid var(--linha); background: var(--fundo); color: var(--texto-3); font-size: 14px; border-radius: 0 0 var(--r-painel) var(--r-painel); }
-.fake-btn { color: var(--texto); background: var(--sup-2); border: 1px solid var(--linha-2); padding: 8px 14px; border-radius: var(--r); }
+.hero-pause:hover { color: var(--texto); border-color: var(--texto-3); }
 
 .avatar {
   display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; flex: none;
@@ -319,10 +297,10 @@ a, button, summary, .btn { touch-action: manipulation; -webkit-tap-highlight-col
 @media (max-width: 920px) {
   /* No celular a foto vira uma faixa no topo; o texto fica embaixo, sem nada atrás */
   .hero { display: block; min-height: 0; padding: 0 0 64px; }
-  .hero-photo { position: relative; left: auto; width: 100%; height: auto; aspect-ratio: 16 / 10; object-position: 50% 35%; }
+  .hero-video { position: relative; left: auto; width: 100%; height: auto; aspect-ratio: 16 / 10; object-position: 50% 35%; }
   .hero::before { background: linear-gradient(0deg, var(--noite) 0%, rgba(11, 13, 18, 0) 30%); bottom: auto; aspect-ratio: 16 / 10; width: 100%; }
   .hero-grid { margin-top: -40px; position: relative; }
-  .hero .channel-stack { justify-self: start; width: 100%; max-width: 420px; }
+  .hero-pause { top: 12px; bottom: auto; }
   .hero-grid, .plus-grid, .faq-grid, .stream-copy { grid-template-columns: minmax(0, 1fr); gap: 40px; }
   .stream-copy { gap: 16px; }
   .faq-side { position: static; }
@@ -336,7 +314,6 @@ a, button, summary, .btn { touch-action: manipulation; -webkit-tap-highlight-col
   .lead { font-size: 18px; }
   .hero .btn-lg { width: 100%; }
   .dl { width: 100%; }
-  .members .share { margin-left: 20px; }
   .row { grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 24px 0; }
   .row-demo { grid-column: 1; margin-top: 6px; }
   .mock-body { grid-template-columns: 52px minmax(0, 1fr); height: 440px; }

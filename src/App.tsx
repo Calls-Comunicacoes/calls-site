@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { DownloadButton } from './components/DownloadButton'
 import { AppPreview } from './components/AppPreview'
-import { IconCheck, IconGithub, IconLock, IconMic } from './components/Icons'
+import { IconCheck, IconGithub, IconLock } from './components/Icons'
 
 const media = (f: string) => `${import.meta.env.BASE_URL}media/${f}`
 
@@ -41,19 +41,42 @@ function Nav() {
   )
 }
 
-/* ---------- Hero: um canal de voz de verdade ---------- */
+/* ---------- Hero: o Callstor no setup, em vídeo ---------- */
 
 function Hero() {
+  const video = useRef<HTMLVideoElement>(null)
+  const [playing, setPlaying] = useState(true)
+
+  useEffect(() => {
+    // Movimento reduzido: fica o quadro parado (poster).
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      video.current?.pause()
+      setPlaying(false)
+    }
+  }, [])
+
+  const toggle = () => {
+    const v = video.current
+    if (!v) return
+    if (v.paused) { void v.play(); setPlaying(true) } else { v.pause(); setPlaying(false) }
+  }
+
   return (
     <section className="hero" id="topo">
-      <img
-        className="hero-photo"
-        src={media('callstor-setup.webp')}
-        alt=""
-        width={1600}
-        height={894}
-        fetchPriority="high"
-      />
+      <video
+        ref={video}
+        className="hero-video"
+        poster={media('hero-callstor-poster.webp')}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+      >
+        <source src={media('hero-callstor.webm')} type="video/webm" />
+        <source src={media('hero-callstor.mp4')} type="video/mp4" />
+      </video>
       <div className="wrap hero-grid">
         <div className="hero-copy">
           <h1>O castor já tá de headset.</h1>
@@ -65,54 +88,11 @@ function Hero() {
             <DownloadButton />
           </div>
         </div>
-        <VoiceChannel />
       </div>
+      <button type="button" className="hero-pause" onClick={toggle} aria-pressed={!playing}>
+        {playing ? 'Pausar animação' : 'Retomar animação'}
+      </button>
     </section>
-  )
-}
-
-function VoiceChannel() {
-  const video = useRef<HTMLVideoElement>(null)
-  useEffect(() => {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) video.current?.pause()
-  }, [])
-
-  return (
-    <figure className="channel-stack">
-      <div
-        className="channel"
-        role="img"
-        aria-label="Exemplo de canal de voz no Calls: Ranqueada das 21h, com senha, 4 de 5 pessoas. Callstor está falando, mari transmite a tela ao vivo em 1440p a 60 quadros e joão está mutado."
-      >
-        <div className="channel-head" aria-hidden="true">
-          <strong>Ranqueada das 21h</strong>
-          <span><IconLock width={14} height={14} /> 4 de 5</span>
-        </div>
-        <ul className="members" aria-hidden="true">
-          <li className="member speaking">
-            <span className="avatar avatar-callstor">
-              <video ref={video} src={media('callstor-loading.webm')} poster={media('callstor-cor.webp')} autoPlay loop muted playsInline />
-            </span>
-            <span className="who" translate="no">callstor<span>#0001</span></span>
-            <span className="state">falando</span>
-          </li>
-          <li className="member">
-            <span className="avatar a2">M</span>
-            <span className="who" translate="no">mari<span>#2048</span></span>
-            <span className="state"><span className="live">AO VIVO</span> 1440p60</span>
-          </li>
-          <li className="member">
-            <span className="avatar a3">J</span>
-            <span className="who" translate="no">joão<span>#0731</span></span>
-            <span className="state muted"><IconMic width={13} height={13} /> mutado</span>
-          </li>
-        </ul>
-        <div className="channel-foot" aria-hidden="true">
-          <span>Falta 1 vaga</span>
-          <span className="fake-btn">Entrar na call</span>
-        </div>
-      </div>
-    </figure>
   )
 }
 
