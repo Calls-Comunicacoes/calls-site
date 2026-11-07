@@ -43,31 +43,67 @@ function Nav() {
 
 /* ---------- Hero: o Callstor no setup, em vídeo ---------- */
 
+const HOLD_MS = 2000 // quanto tempo o Callstor fica parado antes de "acordar"
+const EASE_MS = 1400 // tempo para o vídeo sair de câmera lenta até a velocidade normal
+
 function Hero() {
   const video = useRef<HTMLVideoElement>(null)
+  const ramp = useRef(0)
   const [playing, setPlaying] = useState(true)
+  const [awake, setAwake] = useState(false)
 
   useEffect(() => {
-    // Movimento reduzido: fica o quadro parado (poster).
+    const v = video.current
+    if (!v) return
+    // Movimento reduzido: fica o quadro parado (poster), sem zoom.
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      video.current?.pause()
       setPlaying(false)
+      setAwake(true)
+      return
+    }
+    // Começa o "respiro": zoom lento sobre o quadro parado.
+    const wake = window.setTimeout(() => setAwake(true), 60)
+    const timer = window.setTimeout(() => {
+      if (!v.paused || v.dataset.userPaused) return
+      // Solta o vídeo em câmera lenta e acelera suave até 1x (ease-out).
+      const t0 = performance.now()
+      v.playbackRate = 0.2
+      void v.play().catch(() => setPlaying(false))
+      ramp.current = window.setInterval(() => {
+        const k = Math.min(1, (performance.now() - t0) / EASE_MS)
+        v.playbackRate = 0.2 + 0.8 * (1 - Math.pow(1 - k, 3))
+        if (k >= 1) clearInterval(ramp.current)
+      }, 50)
+    }, HOLD_MS)
+    return () => {
+      clearTimeout(wake)
+      clearInterval(ramp.current)
+      clearTimeout(timer)
     }
   }, [])
 
   const toggle = () => {
     const v = video.current
     if (!v) return
-    if (v.paused) { void v.play(); setPlaying(true) } else { v.pause(); setPlaying(false) }
+    if (playing) {
+      clearInterval(ramp.current)
+      v.pause()
+      v.dataset.userPaused = '1'
+      setPlaying(false)
+    } else {
+      delete v.dataset.userPaused
+      v.playbackRate = 1
+      void v.play()
+      setPlaying(true)
+    }
   }
 
   return (
     <section className="hero" id="topo">
       <video
         ref={video}
-        className="hero-video"
+        className={`hero-video${awake ? ' is-awake' : ''}`}
         poster={media('hero-callstor-poster.webp')}
-        autoPlay
         loop
         muted
         playsInline
