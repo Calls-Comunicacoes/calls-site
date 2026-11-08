@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { DownloadButton } from './components/DownloadButton'
+import { Campaign } from './components/Campaign'
+import { APP_URL } from './config'
 import { AppPreview } from './components/AppPreview'
 import { IconCheck, IconGithub, IconLock } from './components/Icons'
 
@@ -14,6 +16,7 @@ export function App() {
         <Hero />
         <Features />
         <CallsPlus />
+        <Campaign />
         <Faq />
         <Close />
       </main>
@@ -34,8 +37,9 @@ function Nav() {
           <a href="#recursos">Recursos</a>
           <a href="#calls-plus">Calls+</a>
           <a href="#faq">Dúvidas</a>
+          <a href="#apoie">Apoie</a>
         </nav>
-        <a href="#baixar" className="btn btn-sm btn-outline nav-cta">Baixar</a>
+        <a href={APP_URL} className="btn btn-sm btn-outline nav-cta">Entrar</a>
       </div>
     </header>
   )
@@ -122,6 +126,9 @@ function Hero() {
           </p>
           <div id="baixar" className="hero-cta">
             <DownloadButton />
+            <p className="hero-web">
+              Sem Windows agora? <a href={APP_URL}>Crie sua conta e use a prévia no navegador</a>.
+            </p>
           </div>
         </div>
       </div>

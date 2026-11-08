@@ -42,3 +42,18 @@ No ar em **https://calls.fbrdev.com.br** (GitHub Pages com domínio próprio; o 
 | `public/media/` | Callstor (3D, mascote, loading transparente em WebM) |
 
 Os textos do Calls+ seguem a pesquisa em [`calls-docs/negocio/monetizacao.md`](https://github.com/Calls-Comunicacoes/calls-docs/blob/main/negocio/monetizacao.md).
+
+## Prévia web do app (`/app/`)
+
+`public/app/` é o build web do próprio app (repositório privado `calls-desktop`, `vite.web.config.ts`).
+Para atualizar depois de mudar o app:
+
+```bash
+npm run sync:app
+```
+
+Depois é só commitar `public/app` e dar push: o Pages publica junto com o site.
+
+## Campanha de apoio
+
+O link do Apoia.se ou Catarse fica em `src/config.ts` (`CAMPAIGN_URL`). Vazio, o botão aparece como "Campanha abre em breve".

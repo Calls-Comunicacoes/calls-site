@@ -255,6 +255,28 @@ a, button, summary, .btn { touch-action: manipulation; -webkit-tap-highlight-col
 .compare td.no { color: var(--texto-3); }
 .compare .plus-col { color: var(--azul-link); }
 
+/* ---------- Campanha ---------- */
+.campaign { background: var(--fundo); }
+.campaign-grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 72px; align-items: start; }
+.campaign-copy > p { color: var(--texto-2); margin-top: 24px; max-width: 36em; }
+/* As metas são uma sequência de verdade: por isso a numeração */
+.goals { list-style: none; padding: 0; margin-top: 40px; counter-reset: meta; border-top: 1px solid var(--linha); }
+.goals li { counter-increment: meta; display: grid; grid-template-columns: 48px minmax(0, 1fr); column-gap: 8px; padding: 20px 0; border-bottom: 1px solid var(--linha); }
+.goals li::before { content: counter(meta); grid-row: span 2; font: 600 28px/1 var(--display); color: var(--texto-3); }
+.goals h3 { font-size: 20px; }
+.goals p { color: var(--texto-2); font-size: 16px; margin-top: 4px; }
+.tiers { display: flex; flex-direction: column; gap: 0; background: var(--sup); border: 1px solid var(--linha-2); border-radius: var(--r-painel); box-shadow: var(--lift); }
+.tier { padding: 22px 24px; border-bottom: 1px solid var(--linha); }
+.tier-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.tier h3 { font-size: 21px; }
+.tier-head p { color: var(--texto-3); font-size: 14px; }
+.tier-head strong { font: 600 22px/1 var(--display); color: var(--texto); }
+.tier > p { color: var(--texto-2); font-size: 15px; }
+.tier-cta { margin: 22px 24px 24px; }
+.tier-soon { display: flex; flex-direction: column; gap: 10px; padding: 22px 24px 24px; color: var(--texto-3); font-size: 14px; }
+
+.hero-web { margin-top: 18px; font-size: 15px; color: #C3CAD8; }
+
 /* ---------- Dúvidas ---------- */
 .faq-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 72px; align-items: start; }
 .faq-side { position: sticky; top: 108px; }
@@ -308,7 +330,7 @@ a, button, summary, .btn { touch-action: manipulation; -webkit-tap-highlight-col
   .hero::before { background: linear-gradient(0deg, var(--noite) 0%, rgba(11, 13, 18, 0) 30%); bottom: auto; aspect-ratio: 16 / 10; width: 100%; }
   .hero-grid { margin-top: -40px; position: relative; }
   .hero-pause { top: 12px; bottom: auto; }
-  .hero-grid, .plus-grid, .faq-grid, .stream-copy { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .hero-grid, .plus-grid, .faq-grid, .stream-copy, .campaign-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
   .stream-copy { gap: 16px; }
   .faq-side { position: static; }
   .faq-side img { display: none; }
