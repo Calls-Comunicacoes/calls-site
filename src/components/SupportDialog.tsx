@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { APP_URL } from '../config'
 import { getSupabase } from '../supabase'
 import type { Kind, Tier } from './Campaign'
+import { loginUrl } from './AccountButton'
 
 const UFS = 'AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO'.split(' ')
 const brl = (n: number) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
@@ -91,8 +91,8 @@ export function SupportDialog({ tier, kind, onClose }: { tier: Tier; kind: Kind;
       {phase.s === 'login' ? (
         <div className="sd-login">
           <p>Para o apoio entrar no seu perfil do Calls (selos, temas, créditos), entre na sua conta antes. Leva 1 minuto para criar.</p>
-          <a className="btn btn-md btn-primary" href={`${APP_URL}?voltar=apoie`}>Entrar ou criar conta</a>
-          <p className="sd-muted">Depois de entrar, volte aqui no site e clique em apoiar de novo.</p>
+          <a className="btn btn-md btn-primary" href={loginUrl(`/?apoiar=${tier.id}&tipo=${kind}#apoie`)}>Entrar ou criar conta</a>
+          <p className="sd-muted">Depois de entrar você volta direto para cá, com este apoio aberto.</p>
         </div>
       ) : null}
 

@@ -75,10 +75,16 @@ export function Campaign() {
   useEffect(() => {
     // Voltou do Mercado Pago: ?apoio=<id>
     const params = new URLSearchParams(location.search)
-    if (params.has('apoio')) {
-      setThanks(true)
-      history.replaceState(null, '', location.pathname + location.hash)
+    if (params.has('apoio')) setThanks(true)
+    // Voltou do login no meio de um apoio: reabre o nível que a pessoa escolheu
+    const again = TIERS.find((t) => t.id === params.get('apoiar'))
+    if (again) {
+      const k = params.get('tipo') === 'avulso' ? 'avulso' : 'mensal'
+      setKind(k)
+      setChosen(again)
+      document.getElementById('apoie')?.scrollIntoView()
     }
+    if (params.has('apoio') || params.has('apoiar')) history.replaceState(null, '', location.pathname + location.hash)
     void getSupabase()
       .then((sb) => sb.rpc('supporter_wall'))
       .then(({ data }) => setWall((data as WallEntry[] | null) ?? []))

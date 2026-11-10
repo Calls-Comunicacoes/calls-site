@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { DownloadButton } from './components/DownloadButton'
 import { Campaign } from './components/Campaign'
 import { APP_URL } from './config'
+import { AccountButton } from './components/AccountButton'
 import { AppPreview } from './components/AppPreview'
 import { IconCheck, IconGithub, IconLock } from './components/Icons'
 
@@ -39,7 +40,7 @@ function Nav() {
           <a href="#faq">Dúvidas</a>
           <a href="#apoie">Apoie</a>
         </nav>
-        <a href={APP_URL} className="btn btn-sm btn-outline nav-cta">Entrar</a>
+        <AccountButton />
       </div>
     </header>
   )
