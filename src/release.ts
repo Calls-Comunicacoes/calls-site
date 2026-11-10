@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { DOWNLOAD_ENABLED } from './config'
 
 export const RELEASES_REPO = 'Calls-Comunicacoes/calls-releases'
 export const RELEASES_URL = `https://github.com/${RELEASES_REPO}/releases/latest`
@@ -37,8 +38,9 @@ function fetchRelease(): Promise<Release> {
 }
 
 export function useLatestRelease(): Release {
-  const [release, setRelease] = useState<Release>({ state: 'loading' })
+  const [release, setRelease] = useState<Release>({ state: DOWNLOAD_ENABLED ? 'loading' : 'soon' })
   useEffect(() => {
+    if (!DOWNLOAD_ENABLED) return
     let alive = true
     fetchRelease().then((r) => alive && setRelease(r))
     return () => { alive = false }
