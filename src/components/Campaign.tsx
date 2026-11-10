@@ -1,70 +1,162 @@
-import { CAMPAIGN_URL } from '../config'
+import { useEffect, useState } from 'react'
+import { APOIASE_URL } from '../config'
+import { getSupabase } from '../supabase'
+import { SupportDialog } from './SupportDialog'
 
-const GOALS = [
+export type Kind = 'mensal' | 'avulso'
+
+export interface Tier {
+  id: string
+  name: string
+  price: number
+  summary: string
+  perks: string[]
+  recommended?: boolean
+  shipping?: boolean
+}
+
+/** Mesmos níveis da página do Apoia.se (apoia.se/app-calls). */
+export const TIERS: Tier[] = [
   {
-    title: 'Manter os servidores ligados',
-    text: 'Servidor de voz, banco de dados e domínio. É o que deixa as calls de graça para todo mundo.',
+    id: 'raiz',
+    name: 'Apoiador Raiz',
+    price: 15,
+    summary: 'Seu nome no mural de apoiadores do site e acesso antecipado ao beta.',
+    perks: ['Nome no mural do site', 'Acesso antecipado (beta)', 'Acompanhe o desenvolvimento de perto'],
   },
   {
-    title: 'Assinar o instalador',
-    text: 'Certificado de assinatura de código: acaba com o aviso “O Windows protegeu o computador” na hora de instalar.',
+    id: 'fundador',
+    name: 'Selo de Fundador',
+    price: 35,
+    summary: 'Tudo do Raiz e o selo exclusivo de Apoiador Fundador no seu perfil do app.',
+    perks: ['Tudo do Apoiador Raiz', 'Selo de Apoiador Fundador no perfil'],
+    recommended: true,
   },
   {
-    title: 'Calls no macOS e no Linux',
-    text: 'Levar o app para quem não usa Windows, com a mesma qualidade de voz e de tela.',
+    id: 'socio',
+    name: 'Sócio Fundador',
+    price: 50,
+    summary: 'Cores de chat e temas exclusivos de apoiador, e voto nas próximas funções.',
+    perks: ['Tudo dos níveis anteriores', 'Cores de chat e temas exclusivos', 'Canal direto para votar em funções'],
+  },
+  {
+    id: 'visionario',
+    name: 'Apoiador Visionário',
+    price: 150,
+    summary: 'Seu nome nos créditos do app (tela Sobre), selo Visionário e suporte prioritário.',
+    perks: ['Tudo dos níveis anteriores', 'Nome nos créditos do app', 'Selo de Apoiador Visionário', 'Suporte prioritário com a equipe'],
+  },
+  {
+    id: 'parceiro',
+    name: 'Parceiro Oficial',
+    price: 1500,
+    summary: 'Sua marca em destaque no site, nome de usuário VIP e o kit físico: boné e miniatura 3D do Callstor.',
+    perks: [
+      'Marca ou nome em destaque na página principal',
+      'Reserva de nome de usuário VIP',
+      'Linha direta com os desenvolvedores',
+      'Boné oficial FBR.Dev + miniatura 3D do Callstor em casa',
+    ],
+    shipping: true,
   },
 ]
 
-const TIERS = [
-  { name: 'Apoiador', price: 'R$ 5', reward: 'Selo de Apoiador no perfil e seu nome nos créditos do app.' },
-  { name: 'Fundador', price: 'R$ 15', reward: 'Selo de Apoiador Fundador, que nunca mais volta a ser vendido, e acesso antecipado às novidades.' },
-  { name: 'Patrocinador', price: 'R$ 50', reward: 'Tudo acima, um pacote de sons exclusivo do Callstor e voto nas próximas funções.' },
-]
+const brl = (n: number) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
 
-/** Campanha de apoio financeiro (Apoia.se ou Catarse). O link fica em src/config.ts. */
+interface WallEntry { public_name: string; tier_id: string; tier_name: string; since: string }
+
+/** Apoio pelo próprio site (Mercado Pago), com mural de apoiadores. */
 export function Campaign() {
-  const ready = CAMPAIGN_URL !== ''
+  const [kind, setKind] = useState<Kind>('mensal')
+  const [chosen, setChosen] = useState<Tier | null>(null)
+  const [wall, setWall] = useState<WallEntry[] | null>(null)
+  const [thanks, setThanks] = useState(false)
+
+  useEffect(() => {
+    // Voltou do Mercado Pago: ?apoio=<id>
+    const params = new URLSearchParams(location.search)
+    if (params.has('apoio')) {
+      setThanks(true)
+      history.replaceState(null, '', location.pathname + location.hash)
+    }
+    void getSupabase()
+      .then((sb) => sb.rpc('supporter_wall'))
+      .then(({ data }) => setWall((data as WallEntry[] | null) ?? []))
+      .catch(() => setWall([]))
+  }, [])
+
   return (
     <section className="section campaign" id="apoie" aria-labelledby="apoie-titulo">
-      <div className="wrap campaign-grid">
-        <div className="campaign-copy">
-          <h2 id="apoie-titulo" className="section-title">O Calls é independente. Dá uma força?</h2>
-          <p>
-            Não tem investidor nem anúncio. Quem paga o servidor das calls é a comunidade.
-            Com um apoio mensal você mantém o Calls grátis e ajuda a decidir o que vem depois.
-          </p>
-          <ol className="goals">
-            {GOALS.map((g) => (
-              <li key={g.title}>
-                <h3>{g.title}</h3>
-                <p>{g.text}</p>
-              </li>
-            ))}
-          </ol>
+      <div className="wrap">
+        <div className="campaign-head">
+          <div>
+            <h2 id="apoie-titulo" className="section-title">Apoie o Calls.</h2>
+            <p>
+              O Calls é 100% brasileiro e independente: hospedagem, VPS, domínios e banco de dados saem do nosso bolso.
+              Seu apoio mantém essa infraestrutura no ar e o app grátis para todo mundo.
+            </p>
+          </div>
+          <div className="kind-switch" role="radiogroup" aria-label="Tipo de apoio">
+            <button type="button" role="radio" aria-checked={kind === 'mensal'} className={kind === 'mensal' ? 'on' : ''} onClick={() => setKind('mensal')}>
+              Todo mês
+            </button>
+            <button type="button" role="radio" aria-checked={kind === 'avulso'} className={kind === 'avulso' ? 'on' : ''} onClick={() => setKind('avulso')}>
+              Uma vez
+            </button>
+          </div>
         </div>
 
-        <div className="tiers">
+        {thanks ? (
+          <p className="support-thanks" role="status">
+            Valeu demais pelo apoio! Assim que o Mercado Pago confirmar o pagamento, seu nível aparece no seu perfil e, se você quis, no mural.
+          </p>
+        ) : null}
+
+        <ul className="tier-grid">
           {TIERS.map((t) => (
-            <article className="tier" key={t.name}>
-              <div className="tier-head">
-                <h3>{t.name}</h3>
-                <p><strong>{t.price}</strong> por mês</p>
-              </div>
-              <p>{t.reward}</p>
-            </article>
+            <li key={t.id} className={`tier-card${t.recommended ? ' is-recommended' : ''}`}>
+              {t.recommended ? <span className="tier-flag">Mais escolhido</span> : null}
+              <h3>{t.name}</h3>
+              <p className="tier-price">
+                <strong>{brl(t.price)}</strong>
+                <span>{kind === 'mensal' ? 'por mês' : 'uma vez'}</span>
+              </p>
+              <p className="tier-summary">{t.summary}</p>
+              <ul className="tier-perks">
+                {t.perks.map((p) => <li key={p}>{p}</li>)}
+              </ul>
+              <button type="button" className={`btn btn-md ${t.recommended ? 'btn-primary' : 'btn-outline'}`} onClick={() => setChosen(t)}>
+                Apoiar com {brl(t.price)}
+              </button>
+            </li>
           ))}
-          {ready ? (
-            <a className="btn btn-lg btn-primary tier-cta" href={CAMPAIGN_URL} target="_blank" rel="noopener">
-              Apoiar o Calls
-            </a>
+        </ul>
+
+        <p className="support-note">
+          Pagamento seguro pelo Mercado Pago: Pix, cartão ou boleto no apoio de uma vez; cartão no apoio mensal (cancele quando quiser).
+          Prefere outra plataforma? <a href={APOIASE_URL} target="_blank" rel="noopener">Apoie pelo Apoia.se</a>.
+        </p>
+
+        <div className="wall" aria-labelledby="mural-titulo">
+          <h3 id="mural-titulo">Mural de apoiadores</h3>
+          {wall === null ? (
+            <p className="wall-empty">Carregando…</p>
+          ) : wall.length === 0 ? (
+            <p className="wall-empty">Ninguém ainda. Seu nome pode ser o primeiro daqui.</p>
           ) : (
-            <p className="tier-soon">
-              <span className="btn btn-lg btn-soon">Campanha abre em breve</span>
-              <span>A página da campanha está sendo montada.</span>
-            </p>
+            <ul className="wall-list">
+              {wall.map((w) => (
+                <li key={`${w.public_name}-${w.since}`} className={`wall-item t-${w.tier_id}`}>
+                  <strong translate="no">{w.public_name}</strong>
+                  <span>{w.tier_name}</span>
+                </li>
+              ))}
+            </ul>
           )}
         </div>
       </div>
+
+      {chosen ? <SupportDialog tier={chosen} kind={kind} onClose={() => setChosen(null)} /> : null}
     </section>
   )
 }
