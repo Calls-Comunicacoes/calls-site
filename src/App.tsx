@@ -3,7 +3,7 @@ import { DownloadButton } from './components/DownloadButton'
 import { Campaign } from './components/Campaign'
 import { APP_URL } from './config'
 import { AccountButton } from './components/AccountButton'
-import { AppPreview } from './components/AppPreview'
+import { Inside } from './components/Inside'
 import { IconCheck, IconGithub, IconLock } from './components/Icons'
 
 const media = (f: string) => `${import.meta.env.BASE_URL}media/${f}`
@@ -16,6 +16,7 @@ export function App() {
       <main id="conteudo">
         <Hero />
         <Features />
+        <Inside />
         <CallsPlus />
         <Campaign />
         <Faq />
@@ -184,7 +185,16 @@ function Features() {
               Cada pessoa recebe a qualidade que cabe na tela dela.
             </p>
           </div>
-          <AppPreview logo={media('calls-logo-256.png')} />
+          <figure className="shot shot-main">
+            <img
+              src={media('telas/app-chat.webp')}
+              alt="Tela real do Calls: o chat do servidor Clã do Squad, com a call Ranqueada das 21h ao vivo na barra lateral (mari transmitindo a tela) e a lista de membros por cargo."
+              width={2400}
+              height={1350}
+              loading="lazy"
+            />
+            <figcaption>Tela real do app com uma conta de teste. Os nomes e as mensagens são fictícios.</figcaption>
+          </figure>
         </article>
 
         <ul className="rows">

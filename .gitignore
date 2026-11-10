@@ -6,3 +6,4 @@ dist
 rascunho
 dist-ssr
 *.tsbuildinfo
+scripts/telas/saida
