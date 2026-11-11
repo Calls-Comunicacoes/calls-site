@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { APOIASE_URL } from '../config'
-import { getSupabase } from '../supabase'
+import { getApi } from '../api'
 import { SupportDialog } from './SupportDialog'
 
 export type Kind = 'mensal' | 'avulso'
@@ -85,7 +85,7 @@ export function Campaign() {
       document.getElementById('apoie')?.scrollIntoView()
     }
     if (params.has('apoio') || params.has('apoiar')) history.replaceState(null, '', location.pathname + location.hash)
-    void getSupabase()
+    void getApi()
       .then((sb) => sb.rpc('supporter_wall'))
       .then(({ data }) => setWall((data as WallEntry[] | null) ?? []))
       .catch(() => setWall([]))

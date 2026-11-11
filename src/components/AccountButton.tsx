@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { APP_URL, SUPABASE_URL } from '../config'
-import { getSupabase } from '../supabase'
+import { APP_URL, API_URL } from '../config'
+import { getApi } from '../api'
 
 interface Me { id: string; name: string; handle: string | null }
 
 /** Chave onde o supabase-js guarda a sessão (mesma do app web, mesmo domínio). */
-const SESSION_KEY = `sb-${new URL(SUPABASE_URL).hostname.split('.')[0]}-auth-token`
+const SESSION_KEY = `sb-${new URL(API_URL).hostname.split('.')[0]}-auth-token`
 
 /** Link de login que volta para o site depois de entrar. */
 export const loginUrl = (back = '/') => `${APP_URL}?voltar=${encodeURIComponent(back)}`
@@ -18,11 +18,11 @@ export function AccountButton() {
   const box = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Só carrega o Supabase se existe sessão guardada (não pesa a página de quem nunca entrou).
+    // Só carrega o cliente da API se existe sessão guardada (não pesa a página de quem nunca entrou).
     let has = false
     try { has = Boolean(localStorage.getItem(SESSION_KEY)) } catch { /* sem storage */ }
     if (!has) return
-    void getSupabase().then(async (sb) => {
+    void getApi().then(async (sb) => {
       const { data } = await sb.auth.getSession()
       const u = data.session?.user
       if (!u) return
@@ -44,13 +44,13 @@ export function AccountButton() {
   if (!me) return <a href={loginUrl('/')} className="btn btn-sm btn-outline nav-cta">Entrar</a>
 
   async function signOut() {
-    const sb = await getSupabase()
+    const sb = await getApi()
     await sb.auth.signOut()
     setMe(null)
     setOpen(false)
   }
 
-  const avatar = `${SUPABASE_URL}/storage/v1/object/public/avatars/${me.id}/avatar.webp`
+  const avatar = `${API_URL}/storage/v1/object/public/avatars/${me.id}/avatar.webp`
   return (
     <div className="account nav-cta" ref={box}>
       <button type="button" className="account-btn" aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen(!open)}>

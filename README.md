@@ -61,7 +61,7 @@ Basta commitar `public/app` e fazer push: o site e a prévia publicam juntos.
 O site usa o mesmo backend do app (`api.fbrdev.com.br`). A pessoa entra com a conta do Calls, escolhe um nível de apoio e é levada ao Mercado Pago pela função `apoio-checkout` do [`calls-server`](https://github.com/Calls-Comunicacoes/calls-server). A página do Apoia.se fica em `APOIASE_URL`, em `src/config.ts`.
 
 > [!NOTE]
-> A chave em `src/config.ts` é a **publicável** do Supabase e pode ficar no código. Todo acesso é protegido por RLS no banco.
+> A chave em `src/config.ts` é a **pública** da API e pode ficar no código. Todo acesso é protegido por RLS no banco.
 
 ## Estrutura
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { getSupabase } from '../supabase'
+import { getApi } from '../api'
 import type { Kind, Tier } from './Campaign'
 import { loginUrl } from './AccountButton'
 
@@ -18,7 +18,7 @@ export function SupportDialog({ tier, kind, onClose }: { tier: Tier; kind: Kind;
 
   useEffect(() => {
     ref.current?.showModal()
-    void getSupabase()
+    void getApi()
       .then((sb) => sb.auth.getSession())
       .then(({ data }) => {
         const u = data.session?.user
@@ -63,7 +63,7 @@ export function SupportDialog({ tier, kind, onClose }: { tier: Tier; kind: Kind;
     }
     setPhase({ s: 'sending' })
     try {
-      const sb = await getSupabase()
+      const sb = await getApi()
       const { data, error } = await sb.functions.invoke('apoio-checkout', { body })
       if (error) {
         // a função responde { error } com a mensagem em português
